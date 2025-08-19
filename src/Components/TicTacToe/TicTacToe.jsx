@@ -1,6 +1,4 @@
 import React, { useState, useRef } from "react";
-
-import "./TicTacToe.css";
 import circle_icon from "../../assets/circle.png";
 import cross_icon from "../../assets/cross.png";
 
@@ -72,22 +70,23 @@ const TicTacToe = () => {
   const won = (winner) => {
     setLock(true);
     if (winner === "x") {
-      titleRef.current.innerHTML = `<img src="${cross_icon}" class="winner-icon"> has won the game.`;
-      titleRef.current.classList.add("winner-message");
+      titleRef.current.innerHTML = `<img src="${cross_icon}" class="inline w-12 h-12 mx-3"> has won the game! 🎉`;
+      titleRef.current.className = "text-4xl md:text-5xl font-bold text-green-400 mb-12 text-center animate-pulse leading-tight";
     } else if (winner === "o") {
-      titleRef.current.innerHTML = `<img src="${circle_icon}" class="winner-icon"> has won the game.`;
-      titleRef.current.classList.add("winner-message");
+      titleRef.current.innerHTML = `<img src="${circle_icon}" class="inline w-12 h-12 mx-3"> has won the game! 🎉`;
+      titleRef.current.className = "text-4xl md:text-5xl font-bold text-green-400 mb-12 text-center animate-pulse leading-tight";
     } else {
-      titleRef.current.innerHTML = `You have Drawed!`;
-      titleRef.current.classList.add("winner-message");
+      titleRef.current.innerHTML = `It's a Draw! 🤝`;
+      titleRef.current.className = "text-4xl md:text-5xl font-bold text-yellow-400 mb-12 text-center animate-pulse leading-tight";
     }
   };
+
   const reset = () => {
     setLock(false);
     data = ["", "", "", "", "", "", "", "", ""]; // reset the global array
 
-    titleRef.current.innerHTML = `Tic Tac Toe Game Built Using <span>React</span>`;
-    titleRef.current.classList.remove("winner-message");
+    titleRef.current.innerHTML = `Tic Tac Toe Game Built Using <span class="text-blue-400">React</span>`;
+    titleRef.current.className = "text-3xl font-bold text-white mb-8 text-center";
 
     boxarray.forEach((box) => {
       box.current.innerHTML = "";
@@ -95,91 +94,83 @@ const TicTacToe = () => {
   };
 
   return (
-    <div className="container">
-      <h1 className="title" ref={titleRef}>
-        Tic Tac Toe Game Built Using <span>React</span>
-      </h1>
-      <span id="winner_loser"></span>
-      <div className="board">
-        <div className="row1">
-          <div
-            className="boxes"
-            ref={box1}
-            onClick={(e) => {
-              toggle(e, 0);
-            }}
-          ></div>
-          <div
-            className="boxes"
-            ref={box2}
-            onClick={(e) => {
-              toggle(e, 1);
-            }}
-          ></div>
-          <div
-            className="boxes"
-            ref={box3}
-            onClick={(e) => {
-              toggle(e, 2);
-            }}
-          ></div>
+    <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center p-4">
+      <div className="w-full max-w-lg mx-auto">
+        {/* Title */}
+        <h1 
+          className="text-4xl md:text-5xl font-bold text-white mb-12 text-center leading-tight" 
+          ref={titleRef}
+        >
+          Tic Tac Toe Game Built Using <span className="text-blue-400">React</span>
+        </h1>
+        
+        {/* Game Board Container */}
+        <div className="bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-2xl mb-8">
+          {/* Game Grid */}
+          <div className="grid grid-cols-3 gap-3 w-fit mx-auto">
+            {/* Row 1 */}
+            <div
+              className="w-24 h-24 md:w-28 md:h-28 bg-slate-700 border-2 border-slate-600 hover:border-blue-400 rounded-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-slate-600 hover:shadow-lg hover:scale-105 active:scale-95"
+              ref={box1}
+              onClick={(e) => toggle(e, 0)}
+            ></div>
+            <div
+              className="w-24 h-24 md:w-28 md:h-28 bg-slate-700 border-2 border-slate-600 hover:border-blue-400 rounded-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-slate-600 hover:shadow-lg hover:scale-105 active:scale-95"
+              ref={box2}
+              onClick={(e) => toggle(e, 1)}
+            ></div>
+            <div
+              className="w-24 h-24 md:w-28 md:h-28 bg-slate-700 border-2 border-slate-600 hover:border-blue-400 rounded-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-slate-600 hover:shadow-lg hover:scale-105 active:scale-95"
+              ref={box3}
+              onClick={(e) => toggle(e, 2)}
+            ></div>
+            
+            {/* Row 2 */}
+            <div
+              className="w-24 h-24 md:w-28 md:h-28 bg-slate-700 border-2 border-slate-600 hover:border-blue-400 rounded-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-slate-600 hover:shadow-lg hover:scale-105 active:scale-95"
+              ref={box4}
+              onClick={(e) => toggle(e, 3)}
+            ></div>
+            <div
+              className="w-24 h-24 md:w-28 md:h-28 bg-slate-700 border-2 border-slate-600 hover:border-blue-400 rounded-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-slate-600 hover:shadow-lg hover:scale-105 active:scale-95"
+              ref={box5}
+              onClick={(e) => toggle(e, 4)}
+            ></div>
+            <div
+              className="w-24 h-24 md:w-28 md:h-28 bg-slate-700 border-2 border-slate-600 hover:border-blue-400 rounded-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-slate-600 hover:shadow-lg hover:scale-105 active:scale-95"
+              ref={box6}
+              onClick={(e) => toggle(e, 5)}
+            ></div>
+            
+            {/* Row 3 */}
+            <div
+              className="w-24 h-24 md:w-28 md:h-28 bg-slate-700 border-2 border-slate-600 hover:border-blue-400 rounded-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-slate-600 hover:shadow-lg hover:scale-105 active:scale-95"
+              ref={box7}
+              onClick={(e) => toggle(e, 6)}
+            ></div>
+            <div
+              className="w-24 h-24 md:w-28 md:h-28 bg-slate-700 border-2 border-slate-600 hover:border-blue-400 rounded-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-slate-600 hover:shadow-lg hover:scale-105 active:scale-95"
+              ref={box8}
+              onClick={(e) => toggle(e, 7)}
+            ></div>
+            <div
+              className="w-24 h-24 md:w-28 md:h-28 bg-slate-700 border-2 border-slate-600 hover:border-blue-400 rounded-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-slate-600 hover:shadow-lg hover:scale-105 active:scale-95"
+              ref={box9}
+              onClick={(e) => toggle(e, 8)}
+            ></div>
+          </div>
         </div>
-        <div className="row2">
-          <div
-            className="boxes"
-            ref={box4}
-            onClick={(e) => {
-              toggle(e, 3);
-            }}
-          ></div>
-          <div
-            className="boxes"
-            ref={box5}
-            onClick={(e) => {
-              toggle(e, 4);
-            }}
-          ></div>
-          <div
-            className="boxes"
-            ref={box6}
-            onClick={(e) => {
-              toggle(e, 5);
-            }}
-          ></div>
-        </div>
-        <div className="row3">
-          <div
-            className="boxes"
-            ref={box7}
-            onClick={(e) => {
-              toggle(e, 6);
-            }}
-          ></div>
-          <div
-            className="boxes"
-            ref={box8}
-            onClick={(e) => {
-              toggle(e, 7);
-            }}
-          ></div>
-          <div
-            className="boxes"
-            ref={box9}
-            onClick={(e) => {
-              toggle(e, 8);
-            }}
-          ></div>
-        </div>
+        
+        {/* Reset Button */}
+        <button
+          className="w-full max-w-xs mx-auto block px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-lg font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-blue-500/25 hover:scale-105 active:scale-95"
+          onClick={reset}
+        >
+          🎮 Reset Game
+        </button>
       </div>
-      <button
-        className="reset"
-        onClick={() => {
-          reset();
-        }}
-      >
-        Reset
-      </button>
     </div>
   );
 };
+
 export default TicTacToe;
