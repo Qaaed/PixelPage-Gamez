@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
 function GameSelect() {
   const navigate = useNavigate();
 
@@ -20,10 +19,10 @@ function GameSelect() {
           Tic Tac Toe
         </button>
         <button
-          onClick={() => navigate("/snakeGame")}
+          onClick={() => navigate("/MemoryGame")}
           className="px-4 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg"
         >
-          Snake Game
+          Memory Game
         </button>
         <button
           onClick={() => navigate("/ludo")}

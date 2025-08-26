@@ -6,7 +6,7 @@ import SignUp from "./Pages/Signup";
 import Leaderboard from "./Components/Leaderboard";
 import GameSelect from "./Components/GameSelect";
 import About from "./Components/About";
-import SnakeGame from "./Components/Games/SnakeGame";
+import SnakeGame from "./Components/Games/MemoryGame";
 import Ludo from "./Components/Games/Ludo";
 import DinosaurGame from "./Components/Games/DinosaurGame";
 
@@ -22,8 +22,8 @@ function App() {
         <Route path="/leaderboard" element={<Leaderboard />} />
         {/* TicTacToe Game Routing */}
         <Route path="/tictactoe" element={<TicTacToe />} />
-        {/*Snake Game Routing */}
-        <Route path="/snakeGame" element={<SnakeGame />} />
+        {/*Memory Game Routing */}
+        <Route path="/memoryGame" element={<SnakeGame />} />
         {/*Ludo Game Routing */}
         <Route path="/ludo" element={<Ludo />} />
         {/*Dinosaur Game Routing */}
