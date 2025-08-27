@@ -11,6 +11,7 @@ import DinosaurGame from "./Components/Games/DinosaurGame";
 import TicTacToeMode from "./Components/Games/TicTacToe-Modes/GameMode";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProfilePage from "./Pages/ProfilePage";
+import GardenLobby from "./Components/GardenLobby";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
       <Routes>
         {/* Default route shows Game Select */}
         <Route path="/" element={<GameSelect />} />
-        <Route path="/gameselect" element={<GameSelect />} />
+        <Route path="/games" element={<GardenLobby />} />
 
         {/* LeaderBoard Routing */}
         <Route path="/leaderboard" element={<Leaderboard />} />
