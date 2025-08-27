@@ -5,8 +5,10 @@ import {
   GoogleAuthProvider,
   updateProfile,
 } from "firebase/auth";
-import { auth } from "../firebase/firebaseConfig";
+import { auth, db } from "../firebase/firebaseConfig";
 import logo_icon from "../assets/logo.png";
+import { setDoc, doc, serverTimestamp } from 'firebase/firestore'; // Import firestore functions
+
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -46,17 +48,33 @@ const SignUp = () => {
     try {
       // Create user account
       const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        formData.email,
+        auth, 
+        formData.email, 
         formData.password
       );
 
-      // Update user profile with display name
-      await updateProfile(userCredential.user, {
+      const user = userCredential.user;
+      console.log(user + " created in user");
+
+      // Update the firestore database with user details
+      await setDoc(doc(db, "users", user.uid), {
         displayName: formData.displayName,
+        email: formData.email,
+        createdAt: serverTimestamp(), // good practice to use server time stamps
+        stats: {
+            draws: 0,
+            loss: 0,
+            wins: 0
+        }
       });
 
-      console.log("Sign up successful");
+      console.log("user created in firestore");
+
+      // Update user profile with display name
+      await updateProfile(userCredential.user, {
+        displayName: formData.displayName
+      });
+
       // Redirect to dashboard or home page
     } catch (error) {
       setError(error.message);
