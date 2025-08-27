@@ -57,14 +57,12 @@ const Header = () => {
             >
               Games
             </a>
-            {user && (
-              <a
+            <a
                 href="/leaderboard"
                 className="text-slate-300 hover:text-white transition-colors duration-200"
               >
                 Leaderboard
-              </a>
-            )}
+            </a>
           </nav>
 
           {/* User Actions - Desktop */}
