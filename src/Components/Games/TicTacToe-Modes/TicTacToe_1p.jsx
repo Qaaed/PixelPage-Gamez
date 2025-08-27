@@ -5,7 +5,7 @@ import cross_icon from "../../../assets/cross.png";
 let data = ["", "", "", "", "", "", "", "", ""];
 
 const SinglePlayer = () => {
-  let [count, setCount] = useState(0);
+  let [setCount] = useState(0);
   let [lock, setLock] = useState(false);
   let titleRef = useRef(null);
 

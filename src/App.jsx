@@ -9,9 +9,12 @@ import SnakeGame from "./Components/Games/MemoryGame";
 import Ludo from "./Components/Games/Ludo";
 import DinosaurGame from "./Components/Games/DinosaurGame";
 import TicTacToeMode from "./Components/Games/TicTacToe-Modes/GameMode";
+import { AuthProvider } from "./contexts/AuthContext";
+import ProfilePage from "./Pages/ProfilePage";
 
 function App() {
   return (
+    <AuthProvider>
     <Router>
       <Header />
       <Routes>
@@ -42,8 +45,12 @@ function App() {
 
         {/* About Routing*/}
         <Route path="/about" element={<About />} />
+
+        {/* Profile Routing */}
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </Router>
+    </AuthProvider>
   );
 }
 
