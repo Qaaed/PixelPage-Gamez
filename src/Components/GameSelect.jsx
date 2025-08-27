@@ -13,7 +13,7 @@ function GameSelect() {
       {/* Game buttons */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md">
         <button
-          onClick={() => navigate("/tictactoe")}
+          onClick={() => navigate("/tictactoeMode")}
           className="px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
         >
           Tic Tac Toe
