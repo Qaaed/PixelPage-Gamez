@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
-import circle_icon from "src/assets/circle.png";
-import cross_icon from "src/assets/cross.png";
+import circle_icon from "../../../assets/circle.png";
+import cross_icon from "../../../assets/cross.png";
 
 let data = ["", "", "", "", "", "", "", "", ""];
 
