@@ -112,6 +112,55 @@ const DinoGame = () => {
     return () => clearInterval(physicsInterval); // Cleanup after jumping
   }, [gameOver, gameStarted]);
 
+  // Obstacle system
+  useEffect(() => {
+    if (!gameStarted || gameOver) return;
+
+    const interval = setInterval(() => {
+        if (Math.random() < 0.5) {
+            const newObstacle = {
+                id: Date.now() + Math.random(),
+                x: GAME_WIDTH,
+                y: GROUND_THICKNESS,
+            }
+            setObstacles((currentObstacles) => [...currentObstacles, newObstacle]);
+        }
+    }, 1200 + Math.random() * 800);
+    return () => clearInterval(interval);
+  }, [gameStarted, gameOver]);
+
+  // Obstacle Movement
+  useEffect(() => {
+    const moveObstacles = () => {
+        setObstacles((currentObstacles) => {
+            return currentObstacles.map((obstacle) => ({
+                ...obstacle,
+                x: obstacle.x - OBSTACLE_SPEED,
+            })).filter((obstacle) => obstacle.x + OBSTACLE_WIDTH > 0);
+        });
+
+        //Collision detection
+        obstacles.forEach((obstacle) => {
+            const dinoX = 50;
+            const dinoY = GROUND_THICKNESS + dinoPosition;
+            const obstacleX = obstacle.x;
+            const obstacleY = GROUND_THICKNESS;
+
+            if (
+                dinoX < obstacleX + OBSTACLE_WIDTH &&
+                dinoX + DINO_SIZE > obstacleX &&
+                dinoY < obstacleY + OBSTACLE_HEIGHT &&
+                dinoY + DINO_SIZE > obstacleY
+            ) {
+                setGameOver(true);
+            }
+        });
+    }
+
+    const obstacleInterval = setInterval(moveObstacles, 16);
+    return () => clearInterval(obstacleInterval);
+  }, [obstacles, dinoPosition]);
+
   // Setting up scene
   return (
     <div className="flex flex-col items-center pt-12 font-mono min-h-screen bg-[#0f172b] border-none">
@@ -149,12 +198,12 @@ const DinoGame = () => {
         {obstacles.map((obstacle) => (
           <img
             key={obstacle.id}
-            src={cactusImage}
+            src={cactus}
             alt="Cactus"
             style={{
               position: "absolute",
               left: obstacle.x,
-              bottom: GROUND_HEIGHT,
+              bottom: GROUND_THICKNESS,
               width: OBSTACLE_WIDTH,
               height: OBSTACLE_HEIGHT,
               objectFit: "contain", // Keep the cactus proportions
