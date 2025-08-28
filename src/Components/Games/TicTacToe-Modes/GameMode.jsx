@@ -24,7 +24,7 @@ const GameMode = () => {
           hover:scale-105 active:scale-95 block w-60 mx-auto"
           onClick={() => setMode("1p")}
         >
-          🎮 1 Player
+          🎮 Play Against an AI Bot
         </button>
         <button
           className="px-8 py-4 bg-gradient-to-r from-green-600 to-green-700 
@@ -33,7 +33,7 @@ const GameMode = () => {
           hover:scale-105 active:scale-95 block w-60 mx-auto"
           onClick={() => setMode("2p")}
         >
-          👥 2 Players
+          👥 Play Against Another Player
         </button>
       </div>
     </div>
