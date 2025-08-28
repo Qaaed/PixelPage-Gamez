@@ -24,11 +24,10 @@ const DinoGame = () => {
   const OBSTACLE_SPEED = 5;
 
   //Physics constaints
-  const JUMP_FORCE = -12;
+  const JUMP_FORCE = -10;
   const GRAVITY = 0.6;
   const [velocity, setVelocity] = useState(0); // Dino Velocity
 
-  
   // Jumping function
   const jump = () => {
     console.log("Jump function called!"); // Debugging purposes
@@ -36,9 +35,9 @@ const DinoGame = () => {
       setIsJumping(true);
       setVelocity(JUMP_FORCE);
     } else {
-      console.log("Jump ignored: already jumping!") // Debugging purposes
+      console.log("Jump ignored: already jumping!"); // Debugging purposes
     }
-  }
+  };
 
   // Loop to increment score
   useEffect(() => {
@@ -81,16 +80,41 @@ const DinoGame = () => {
           setVelocity(0);
         }
       }
-    }
+    };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown); // Cleanup when component unmounts :)
-  }, [gameStarted, gameOver, isJumping, dinoPosition])
+  }, [gameStarted, gameOver, isJumping, dinoPosition]);
 
+  // Physics loop for when jumping
+  useEffect(() => {
+    if (!gameStarted || gameOver) return;
+
+    const updatePhysics = () => {
+      setVelocity((currentVelocity) => {
+        const newVelocity = currentVelocity + GRAVITY;
+
+        setDinoPosition((currentPosition) => {
+          const newPosition = currentPosition - newVelocity;
+
+          if (newPosition <= 0) {
+            setIsJumping(false);
+            console.log("Dino landed!"); // Debugging purposes
+            return 0;
+          }
+          return newPosition;
+        });
+        return newVelocity;
+      });
+    };
+
+    const physicsInterval = setInterval(updatePhysics, 16);
+    return () => clearInterval(physicsInterval); // Cleanup after jumping
+  }, [gameOver, gameStarted]);
 
   // Setting up scene
   return (
-    <div className="flex flex-col items-center pt-12 font-mono min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center pt-12 font-mono min-h-screen bg-[#0f172b] border-none">
       <h1>🦕 Chrome Dino Game</h1>
       <div className="text-lg mb-2.5">Score: {score}</div>
 
@@ -102,7 +126,7 @@ const DinoGame = () => {
         }}
       >
         <div
-          className="absolute bottom-0 w-full bg-gray-800"
+          className="absolute bottom-0 w-full bg-[#0f172b]"
           style={{
             height: GROUND_THICKNESS,
             backgroundImage:
@@ -137,6 +161,22 @@ const DinoGame = () => {
             }}
           />
         ))}
+
+        {gameOver && (
+          <div className="absolute inset-0 bg-black/70 flex flex-col justify-center items-center text-white text-xl">
+            <div>Game Over!</div>
+            <div className="text-base mt-2.5">Final Score: {score}</div>
+            <div className="text-sm mt-5">Press 'R' to restart</div>
+          </div>
+        )}
+
+        {/* Start Screen */}
+        {!gameStarted && !gameOver && (
+          <div className="absolute inset-0 bg-white/90 flex flex-col justify-center items-center text-lg">
+            <div>🦕 Chrome Dino Game</div>
+            <div className="text-sm mt-5">Press SPACE to start</div>
+          </div>
+        )}
       </div>
     </div>
   );
